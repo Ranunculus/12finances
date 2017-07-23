@@ -1,11 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Period</title>
+    <title>Transactions</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script src="webjars/jquery/2.0.3/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div>choose dates</div>
+<div><h2>Expenses</h2></div>
+<table class="table table-striped">
+    <thead>
+        <tr class="danger">
+            <td>Дата</td>
+            <td>Количество</td>
+            <td>Категория</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="row : ${rows}">
+            <td th:text="${row.date}"></td>
+            <td th:text="${row.value}"></td>
+            <td th:text="${row.category.name}"></td>
+        </tr>
+    </tbody>
+
+    <tfoot>
+        <tr class="danger">
+            <td>Total:</td>
+            <td>total test</td>
+            <td></td>
+        </tr>
+    </tfoot>
+
+</table>
+
+<div><h2>Income</h2></div>
+<table class="table table-striped">
+    <tr class="info">...</tr>
+</table>
+
 
 </body>
 </html>

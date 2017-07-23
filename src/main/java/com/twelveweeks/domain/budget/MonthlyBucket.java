@@ -1,4 +1,4 @@
-package com.twelveweeks.domain;
+package com.twelveweeks.domain.budget;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class MonthlyBucket{
     private String name;
     private BigDecimal limit;
 }
