@@ -3,6 +3,8 @@ package com.twelveweeks.controllers;
 import com.twelveweeks.domain.transactions.Category;
 import com.twelveweeks.domain.transactions.Expense;
 import com.twelveweeks.domain.transactions.Finance;
+import com.twelveweeks.services.TransactionsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +17,13 @@ import java.util.Date;
 @Controller
 public class TransactionsController {
 
+    @Autowired
+    TransactionsService service;
+
     @RequestMapping("/")
     public String indexTest(Model model){
+
+        service.testDataSource();
         Category category = new Category();
         category.setLimit(new BigDecimal(10));
         category.setName("Еда");

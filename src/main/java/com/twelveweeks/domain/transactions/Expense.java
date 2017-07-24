@@ -1,11 +1,8 @@
 package com.twelveweeks.domain.transactions;
 
-import lombok.extern.java.Log;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Log
 public class Expense implements Finance {
 
     private BigDecimal value;
