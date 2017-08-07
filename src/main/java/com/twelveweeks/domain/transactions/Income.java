@@ -14,7 +14,7 @@ public class Income implements Finance{
 
     private BigDecimal value;
 
-    private Long userId;
+    private Integer userId;
 
     private Category category;
 
@@ -49,12 +49,12 @@ public class Income implements Finance{
     }
 
     @Override
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
     @Override
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

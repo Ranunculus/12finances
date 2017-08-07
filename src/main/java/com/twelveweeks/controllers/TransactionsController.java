@@ -1,8 +1,7 @@
 package com.twelveweeks.controllers;
 
 import com.twelveweeks.domain.transactions.Category;
-import com.twelveweeks.domain.transactions.Expense;
-import com.twelveweeks.domain.transactions.Finance;
+import com.twelveweeks.domain.transactions.Expenses;
 import com.twelveweeks.services.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,10 +26,10 @@ public class TransactionsController {
         Category category = new Category();
         category.setLimit(new BigDecimal(10));
         category.setName("Еда");
-        Finance expense = new Expense();
-        expense.setCategory(category);
-        expense.setDate(new Date());
-        expense.setValue(new BigDecimal(10000));
+        Expenses expense = new Expenses();
+//        expense.setCategory(new );
+//        expense.setDate(new Date());
+//        expense.setValue(new BigDecimal(10000));
         model.addAttribute("rows", Collections.singletonList(expense));
         return "period";
     }

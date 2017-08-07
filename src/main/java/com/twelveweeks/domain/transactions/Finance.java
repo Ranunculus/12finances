@@ -14,8 +14,8 @@ public interface Finance {
     Date getDate();
     void setDate(Date date);
 
-    Long getUserId();
-    void setUserId(Long userId);
+    Integer getUserId();
+    void setUserId(Integer userId);
 
     Category getCategory();
     void setCategory(Category category);
