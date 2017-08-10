@@ -19,15 +19,16 @@ public class Category {
     @Column(name = "CATEGORY_LIMIT")
     private BigDecimal limit;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
-    private List<Expenses> expenses;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = CascadeType.ALL)
+    private List<Transaction> transactions;
 
-    public Category() {}
+    public Category() {
+    }
 
-    public Category(String name, BigDecimal limit, List<Expenses> expenses) {
+    public Category(String name, BigDecimal limit, List<Transaction> transactions) {
         this.name = name;
         this.limit = limit;
-        this.expenses = expenses;
+        this.transactions = transactions;
     }
 
     public Integer getId() {
@@ -54,11 +55,11 @@ public class Category {
         this.limit = limit;
     }
 
-    public List<Expenses> getExpenses() {
-        return expenses;
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public void setExpenses(List<Expenses> expenses) {
-        this.expenses = expenses;
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

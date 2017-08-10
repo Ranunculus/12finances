@@ -9,8 +9,12 @@ import java.sql.SQLException;
 @Service
 public class TransactionsService {
 
-    @Autowired
     DataSource dataSource;
+
+    @Autowired
+    public TransactionsService(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     public void testDataSource(){
         try {

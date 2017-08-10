@@ -20,7 +20,7 @@
     </thead>
 
     <tbody>
-        <tr th:each="row : ${rows}">
+        <tr th:each="row : ${expenseRows}">
             <td th:text="${row.date}"></td>
             <td th:text="${row.value}"></td>
             <td th:text="${row.category.name}"></td>
@@ -30,7 +30,7 @@
     <tfoot>
         <tr class="danger">
             <td>Total:</td>
-            <td>total test</td>
+            <td th:text="${expenseTotal}"></td>
             <td></td>
         </tr>
     </tfoot>
@@ -39,7 +39,30 @@
 
 <div><h2>Income</h2></div>
 <table class="table table-striped">
-    <tr class="info">...</tr>
+    <thead>
+    <tr class="danger">
+        <td>Дата</td>
+        <td>Количество</td>
+        <td>Категория</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="row : ${incomeRows}">
+        <td th:text="${row.date}"></td>
+        <td th:text="${row.value}"></td>
+        <td th:text="${row.category.name}"></td>
+    </tr>
+    </tbody>
+
+    <tfoot>
+    <tr class="danger">
+        <td>Total:</td>
+        <td th:text="${incomeTotal}"></td>
+        <td></td>
+    </tr>
+    </tfoot>
+
 </table>
 
 
