@@ -1,7 +1,10 @@
 package com.twelveweeks.controllers;
 
+import com.twelveweeks.domain.transactions.Category;
 import com.twelveweeks.domain.transactions.Expenses;
 import com.twelveweeks.domain.transactions.Income;
+import com.twelveweeks.domain.transactions.Transaction;
+import com.twelveweeks.repository.CategoryRepository;
 import com.twelveweeks.repository.ExpensesRepository;
 import com.twelveweeks.repository.IncomeRepository;
 import com.twelveweeks.services.TransactionsService;
@@ -27,6 +30,9 @@ public class TransactionsController {
 
     @Autowired
     IncomeRepository incomeRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @RequestMapping("/")
     public String indexTest(Model model){
@@ -63,6 +69,30 @@ public class TransactionsController {
         model.addAttribute("rows", expenses);
         model.addAttribute("total", total);
         return "period";
+    }
+
+    @RequestMapping("/add")
+    public String indexTest(Model model, @RequestParam String transactionType, @RequestParam String amount, @RequestParam String categoryName) {
+        System.out.println(transactionType);
+        System.out.println(amount);
+        System.out.println(categoryName);
+        boolean isExpense = "Expense".equals(transactionType);
+        Transaction transaction = isExpense ? new Expenses() : new Income();
+
+        transaction.setCurrency("RUB");
+
+        transaction.setDate(new Date());
+        transaction.setType(transactionType);
+        transaction.setUserId(1);
+        transaction.setValue(new BigDecimal(amount));
+        Category categoryByName = categoryRepository.findOneByName(categoryName);
+        transaction.setCategory(categoryByName);
+//        if (isExpense) {
+//            expensesRepository.save((Expenses) transaction);
+//        } else {
+//            incomeRepository.save((Income) transaction);
+//        }
+        return "redirect:/";
     }
 
 }
