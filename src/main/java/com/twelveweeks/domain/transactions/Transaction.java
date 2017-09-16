@@ -1,8 +1,5 @@
 package com.twelveweeks.domain.transactions;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,8 +7,7 @@ import java.util.Date;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
-@Getter
-@Setter
+
 public abstract class Transaction implements Finance {
 
     @Id
@@ -38,4 +34,7 @@ public abstract class Transaction implements Finance {
     @JoinColumn(name = "CATEGORY_ID")
     protected Category category;
 
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 }
