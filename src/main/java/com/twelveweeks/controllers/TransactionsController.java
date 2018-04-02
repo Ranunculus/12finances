@@ -1,6 +1,6 @@
 package com.twelveweeks.controllers;
 
-import com.twelveweeks.domain.transactions.Category;
+import com.twelveweeks.controllers.form.TransactionForm;
 import com.twelveweeks.domain.transactions.Expenses;
 import com.twelveweeks.domain.transactions.Income;
 import com.twelveweeks.domain.transactions.Transaction;
@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,7 +38,6 @@ public class TransactionsController {
 
     @RequestMapping("/")
     public String indexTest(Model model){
-
         ArrayList<Expenses> expenses = new ArrayList<>();
         BigDecimal total = BigDecimal.ZERO;
         for (Expenses expense : expensesRepository.findAll()) {
@@ -54,11 +55,16 @@ public class TransactionsController {
         }
         model.addAttribute("incomeRows", incomes);
         model.addAttribute("incomeTotal", total);
+        model.addAttribute("transactionForm", new TransactionForm());
+
+        model.addAttribute("categories", categoryRepository.findAll());
         return "period";
     }
 
     @RequestMapping("/period")
-    public String periodTransactions(Model model, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate){
+    public String periodTransactions(Model model,
+                                     @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
+                                     @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate){
 
         ArrayList<Expenses> expenses = new ArrayList<>();
         BigDecimal total = BigDecimal.ZERO;
@@ -66,29 +72,41 @@ public class TransactionsController {
             total = total.add(expense.getValue());
             expenses.add(expense);
         }
-        model.addAttribute("rows", expenses);
-        model.addAttribute("total", total);
+        model.addAttribute("expenseRows", expenses);
+        model.addAttribute("expenseTotal", total);
+
+        total = BigDecimal.ZERO;
+        ArrayList<Income> incomes = new ArrayList<>();
+        for (Income income : incomeRepository.findByDateBetween(startDate, endDate)) {
+            total = total.add(income.getValue());
+            incomes.add(income);
+        }
+        model.addAttribute("incomeRows", incomes);
+        model.addAttribute("incomeTotal", total);
+        model.addAttribute("transactionForm", new TransactionForm());
         return "period";
     }
 
-    @RequestMapping("/add")
-    public String indexTest(Model model, @RequestParam String transactionType, @RequestParam String amount, @RequestParam String categoryName) {
-        System.out.println(transactionType);
-        System.out.println(amount);
-        System.out.println(categoryName);
-        boolean isExpense = "Expense".equals(transactionType);
-        Transaction transaction = isExpense ? new Expenses() : new Income();
+    @GetMapping("/add")
+    public String indexTest(Model model, @ModelAttribute TransactionForm transactionForm) {
+        System.out.println(transactionForm);
+//        System.out.println(transactionType);
+//        System.out.println(amount);
+//        System.out.println(categoryName);
+//        boolean isExpense = "Expense".equals(transactionType);
+        Transaction transaction = new Expenses();
 
         transaction.setCurrency("RUB");
 
         transaction.setDate(new Date());
-        transaction.setType(transactionType);
+        transaction.setType("Expenses");
         transaction.setUserId(1);
-        transaction.setValue(new BigDecimal(amount));
-        Category categoryByName = categoryRepository.findOneByName(categoryName);
-        transaction.setCategory(categoryByName);
+        transaction.setValue(transactionForm.getValue());
+        transaction.setCategory(categoryRepository.findOneByName(transactionForm.getCategory()));
+//        Category categoryByName = categoryRepository.findOneByName(categoryName);
+//        transaction.setCategory(categoryByName);
 //        if (isExpense) {
-//            expensesRepository.save((Expenses) transaction);
+            expensesRepository.save((Expenses) transaction);
 //        } else {
 //            incomeRepository.save((Income) transaction);
 //        }

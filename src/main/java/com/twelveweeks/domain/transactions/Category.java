@@ -62,4 +62,14 @@ public class Category {
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", limit=" + limit +
+                ", transactions=" + transactions +
+                '}';
+    }
 }

@@ -70,7 +70,7 @@
     </body>
 
     <div class="modal fade" id="add-transaction-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <form class="form-inline" th:action="@{/add}">
+        <form class="form-inline" th:action="@{/add}" th:object="${transactionForm}" method="get">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -78,14 +78,19 @@
                     </div>
                     <div class="modal-body">
                         <select class="form-control" th:name="transactionType">
-                            <option>Expense</option>
+                            <option >Expense</option>
                             <option>Income</option>
                         </select>
-                        <input class="form-control" placeholder="amount" th:name="amount"/>
-                        <select class="form-control" th:name="categoryName">
-                            <option>Shopping</option>
-                            <option>Income</option>
+
+                        <input class="form-control" placeholder="amount" th:name="value" th:field="*{value}"/>
+                        <select class="form-control" th:name="category" th:field="*{category}">
+                            <option th:each="c : ${categories}"
+                                    th:value="${c.getName()}" th:text="${c.getName()}"></option>
                         </select>
+                        <!--<select class="form-control" th:name="category" th:field="*{category}">-->
+                            <!--<option th:value="Shopping">Shopping</option>-->
+                            <!--<option th:value="Income">Income</option>-->
+                        <!--</select>-->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
