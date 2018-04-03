@@ -1,6 +1,6 @@
 package com.twelveweeks.controllers;
 
-import com.twelveweeks.controllers.form.TransactionForm;
+import com.twelveweeks.controllers.request.TransactionRequest;
 import com.twelveweeks.domain.transactions.Expenses;
 import com.twelveweeks.domain.transactions.Income;
 import com.twelveweeks.domain.transactions.Transaction;
@@ -55,7 +55,7 @@ public class TransactionsController {
         }
         model.addAttribute("incomeRows", incomes);
         model.addAttribute("incomeTotal", total);
-        model.addAttribute("transactionForm", new TransactionForm());
+        model.addAttribute("transactionForm", new TransactionRequest());
 
         model.addAttribute("categories", categoryRepository.findAll());
         return "period";
@@ -83,26 +83,23 @@ public class TransactionsController {
         }
         model.addAttribute("incomeRows", incomes);
         model.addAttribute("incomeTotal", total);
-        model.addAttribute("transactionForm", new TransactionForm());
+        model.addAttribute("transactionForm", new TransactionRequest());
         return "period";
     }
 
     @GetMapping("/add")
-    public String indexTest(Model model, @ModelAttribute TransactionForm transactionForm) {
-        System.out.println(transactionForm);
-//        System.out.println(transactionType);
-//        System.out.println(amount);
-//        System.out.println(categoryName);
+    public String indexTest(Model model, @ModelAttribute TransactionRequest transactionRequest) {
+
 //        boolean isExpense = "Expense".equals(transactionType);
         Transaction transaction = new Expenses();
 
         transaction.setCurrency("RUB");
 
         transaction.setDate(new Date());
-        transaction.setType("Expenses");
+        transaction.setType(transactionRequest.getType().name());
         transaction.setUserId(1);
-        transaction.setValue(transactionForm.getValue());
-        transaction.setCategory(categoryRepository.findOneByName(transactionForm.getCategory()));
+        transaction.setValue(transactionRequest.getValue());
+        transaction.setCategory(categoryRepository.findOneByName(transactionRequest.getCategory()));
 //        Category categoryByName = categoryRepository.findOneByName(categoryName);
 //        transaction.setCategory(categoryByName);
 //        if (isExpense) {
