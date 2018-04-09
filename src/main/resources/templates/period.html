@@ -77,9 +77,10 @@
                         <h4 class="modal-title">Add finance transaction</h4>
                     </div>
                     <div class="modal-body">
-                        <select class="form-control" th:name="transactionType" th:field="*{value}">
-                            <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType)}"
-                                    th:value="${c.name()}" th:text="${c.name()}"></option>
+                        <select class="form-control" th:name="transactionType" th:field="*{type}">
+                            <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType).values()}"
+                                    th:value="${c}" th:text="${c.name()}"></option>
+
                         </select>
 
                         <input class="form-control" placeholder="amount" th:name="value" th:field="*{value}"/>

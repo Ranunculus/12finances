@@ -2,6 +2,8 @@ package com.twelveweeks.controllers.request;
 
 import com.twelveweeks.domain.enums.TransactionType;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -9,10 +11,14 @@ import java.math.BigDecimal;
  */
 public class TransactionRequest {
 
+    @NotNull
     private BigDecimal value;
 
+    @NotNull
+    @Min(0)
     private String category;
 
+    @NotNull
     private TransactionType type;
 
     public TransactionRequest() {

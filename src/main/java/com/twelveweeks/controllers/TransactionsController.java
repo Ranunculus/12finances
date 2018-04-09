@@ -12,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,7 +58,7 @@ public class TransactionsController {
         }
         model.addAttribute("incomeRows", incomes);
         model.addAttribute("incomeTotal", total);
-        model.addAttribute("transactionForm", new TransactionRequest());
+        model.addAttribute("transactionRequest", new TransactionRequest());
 
         model.addAttribute("categories", categoryRepository.findAll());
         return "period";
@@ -88,7 +91,10 @@ public class TransactionsController {
     }
 
     @GetMapping("/add")
-    public String indexTest(Model model, @ModelAttribute TransactionRequest transactionRequest) {
+    public String indexTest(Model model, @Valid @ModelAttribute("transactionRequest") TransactionRequest transactionRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException();
+        }
 
 //        boolean isExpense = "Expense".equals(transactionType);
         Transaction transaction = new Expenses();
