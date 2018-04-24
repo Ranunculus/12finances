@@ -9,110 +9,42 @@
         <script src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <button class="btn btn-info" type="submit" data-toggle="modal" data-target="#add-transaction-modal">Add transaction</button>
+        <div th:replace="fragments :: navigation"></div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                <div class="panel panel-default">
+                    <form class="form-inline" th:action="@{/add}" th:object="${transactionRequest}" method="get">
+                        <div th:if="${#fields.hasErrors('value')}">errors</div>
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Add finance transaction</h3>
+                        </div>
+                        <div class="panel-body">
+                            <select class="form-control" th:name="transactionType" th:field="*{type}">
+                                <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType).values()}"
+                                        th:value="${c}" th:text="${c.name()}"></option>
 
-        <div><h2>Expenses</h2></div>
-        <table class="table table-striped">
-            <thead>
-            <tr class="danger">
-                <td>Date</td>
-                <td>Amount</td>
-                <td>Category</td>
-            </tr>
-            </thead>
+                            </select>
 
-            <tbody>
-            <tr th:each="row : ${expenseRows}">
-                <td th:text="${row.date}"></td>
-                <td th:text="${row.value}"></td>
-                <td th:text="${row.category.name}"></td>
-            </tr>
-            </tbody>
-
-            <tfoot>
-            <tr class="danger">
-                <td>Total:</td>
-                <td th:text="${expenseTotal}"></td>
-                <td></td>
-            </tr>
-            </tfoot>
-
-        </table>
-
-        <div><h2>Income</h2></div>
-        <table class="table table-striped">
-            <thead>
-            <tr class="success">
-                <td>Date</td>
-                <td>Amount</td>
-                <td>Category</td>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr th:each="row : ${incomeRows}">
-                <td th:text="${row.date}"></td>
-                <td th:text="${row.value}"></td>
-                <td th:text="${row.category.name}"></td>
-            </tr>
-            </tbody>
-
-            <tfoot>
-            <tr class="success">
-                <td>Total:</td>
-                <td th:text="${incomeTotal}"></td>
-                <td></td>
-            </tr>
-            </tfoot>
-
-        </table>
-        <!--<button id="add-income-button" class="btn btn-info" data-toggle="modal" data-target="#add-income-modal">Add income</button>-->
-    </body>
-
-    <div class="modal fade" id="add-transaction-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <form class="form-inline" th:action="@{/add}" th:object="${transactionRequest}" method="get">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add finance transaction</h4>
-                    </div>
-                    <div class="modal-body">
-                        <select class="form-control" th:name="transactionType" th:field="*{type}">
-                            <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType).values()}"
-                                    th:value="${c}" th:text="${c.name()}"></option>
-
-                        </select>
-
-                        <input class="form-control" placeholder="amount" th:name="value" th:field="*{value}"/>
-                        <select class="form-control" th:name="category" th:field="*{category}">
-                            <option th:each="c : ${categories}"
-                                    th:value="${c.getName()}" th:text="${c.getName()}"></option>
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" th:type="submit">Save changes</button>
-                    </div>
+                            <input class="form-control" placeholder="amount" th:name="value" th:field="*{value}"/>
+                            <span th:if="${#fields.hasErrors('value')}" th:errors="*{value}" class="text-danger help-block" ></span>
+                            <select class="form-control" th:name="category" th:field="*{category}">
+                                <option th:each="c : ${categories}"
+                                        th:value="${c.getName()}" th:text="${c.getName()}"></option>
+                            </select>
+                        </div>
+                        <div class="panel-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" th:type="submit">Save changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
 
-    <!--<div class="modal fade" id="add-income-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-        <!--<div class="modal-dialog" role="document">-->
-            <!--<div class="modal-content">-->
-                <!--<div class="modal-header">-->
-                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-                    <!--<h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
-                <!--</div>-->
-                <!--<div class="modal-body">-->
-                    <!--...-->
-                <!--</div>-->
-                <!--<div class="modal-footer">-->
-                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+        <h3>Expenses</h3>
+        <div th:replace="fragments :: table(${expenseRows}, ${expenseTotal}, 'danger')"></div>
+        <h3>Incomes</h3>
+        <div th:replace="fragments :: table(${incomeRows}, ${incomeTotal}, 'success')"></div>
+
+    </body>
 </html>

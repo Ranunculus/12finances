@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import javax.validation.ValidationException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,7 +38,7 @@ public class TransactionsController {
     @Autowired
     CategoryRepository categoryRepository;
 
-    @RequestMapping("/")
+    @RequestMapping("/now")
     public String indexTest(Model model){
         ArrayList<Expenses> expenses = new ArrayList<>();
         BigDecimal total = BigDecimal.ZERO;
@@ -93,7 +92,7 @@ public class TransactionsController {
     @GetMapping("/add")
     public String indexTest(Model model, @Valid @ModelAttribute("transactionRequest") TransactionRequest transactionRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            throw new ValidationException();
+            return "period";
         }
 
 //        boolean isExpense = "Expense".equals(transactionType);
