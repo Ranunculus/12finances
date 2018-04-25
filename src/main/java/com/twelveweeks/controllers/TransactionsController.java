@@ -92,6 +92,7 @@ public class TransactionsController {
     @GetMapping("/add")
     public String indexTest(Model model, @Valid @ModelAttribute("transactionRequest") TransactionRequest transactionRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("transactionForm", transactionRequest);
             return "period";
         }
 
