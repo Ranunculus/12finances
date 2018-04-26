@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 public class TransactionRequest {
 
     @NotNull
+    @Min(0)
     private BigDecimal value;
 
     @NotNull
-    @Min(0)
     private String category;
 
     @NotNull

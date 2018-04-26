@@ -1,6 +1,7 @@
 package com.twelveweeks.controllers;
 
 import com.twelveweeks.controllers.request.TransactionRequest;
+import com.twelveweeks.domain.enums.TransactionType;
 import com.twelveweeks.domain.transactions.Expenses;
 import com.twelveweeks.domain.transactions.Income;
 import com.twelveweeks.domain.transactions.Transaction;
@@ -93,11 +94,12 @@ public class TransactionsController {
     public String indexTest(Model model, @Valid @ModelAttribute("transactionRequest") TransactionRequest transactionRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("transactionForm", transactionRequest);
+            model.addAttribute("categories", categoryRepository.findAll());
             return "period";
         }
 
-//        boolean isExpense = "Expense".equals(transactionType);
-        Transaction transaction = new Expenses();
+        boolean isExpense = TransactionType.EXPENSE.equals(transactionRequest.getType());
+        Transaction transaction = isExpense ? new Expenses() : new Income();
 
         transaction.setCurrency("RUB");
 
@@ -106,13 +108,11 @@ public class TransactionsController {
         transaction.setUserId(1);
         transaction.setValue(transactionRequest.getValue());
         transaction.setCategory(categoryRepository.findOneByName(transactionRequest.getCategory()));
-//        Category categoryByName = categoryRepository.findOneByName(categoryName);
-//        transaction.setCategory(categoryByName);
-//        if (isExpense) {
+        if (isExpense) {
             expensesRepository.save((Expenses) transaction);
-//        } else {
-//            incomeRepository.save((Income) transaction);
-//        }
+        } else {
+            incomeRepository.save((Income) transaction);
+        }
         return "redirect:/";
     }
 

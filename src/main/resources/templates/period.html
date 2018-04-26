@@ -11,7 +11,7 @@
     <body>
         <div th:replace="fragments :: navigation"></div>
         <div class="row">
-            <div class="col-md-6 col-md-offset-2">
+            <div class="col-lg-5 col-lg-offset-2">
                 <div class="panel panel-default">
                     <form class="form-inline" th:action="@{/add}" th:object="${transactionRequest}" method="get">
                         <div class="panel-heading">
@@ -20,16 +20,16 @@
                         <div class="panel-body">
 
                             <div class="row">
-                                <div class="form-group col-xs-2" th:classappend="${#fields.hasErrors('type') ? 'has-error' : ''}">
+                                <div class="form-group col-lg-2" th:classappend="${#fields.hasErrors('type') ? 'has-error' : ''}">
                                     <select class="form-control" th:name="transactionType" th:field="*{type}">
                                         <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType).values()}"
                                                 th:value="${c}" th:text="${c.name()}"></option>
                                     </select>
                                 </div>
-                                <div class="form-group col-xs-2" th:classappend="${#fields.hasErrors('value') ? 'has-error' : ''}">
+                                <div class="form-group col-lg-1" th:classappend="${#fields.hasErrors('value') ? 'has-error' : ''}">
                                     <input class="form-control" placeholder="amount" th:name="value" th:field="*{value}"/>
                                 </div>
-                                <div class="form-group col-xs-2" th:classappend="${#fields.hasErrors('category') ? 'has-error' : ''}">
+                                <div class="form-group col-lg-1  col-lg-offset-3" th:classappend="${#fields.hasErrors('category') ? 'has-error' : ''}">
                                     <select class="form-control" th:name="category" th:field="*{category}">
                                         <option th:each="c : ${categories}"
                                                 th:value="${c.getName()}" th:text="${c.getName()}"></option>
@@ -37,13 +37,13 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-xs-2" th:classappend="${#fields.hasErrors('type') ? 'has-error' : ''}">
+                                <div class="form-group col-lg-2" th:classappend="${#fields.hasErrors('type') ? 'has-error' : ''}">
                                     <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="text-danger help-block" ></span>
                                 </div>
-                                <div class="form-group col-xs-2" th:classappend="${#fields.hasErrors('value') ? 'has-error' : ''}">
+                                <div class="form-group col-lg-3" th:classappend="${#fields.hasErrors('value') ? 'has-error' : ''}">
                                     <span th:if="${#fields.hasErrors('value')}" th:errors="*{value}" class="text-danger help-block" ></span>
                                 </div>
-                                <div class="form-group col-xs-2" th:classappend="${#fields.hasErrors('category') ? 'has-error' : ''}">
+                                <div class="form-group col-lg-1" th:classappend="${#fields.hasErrors('category') ? 'has-error' : ''}">
                                     <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="text-danger help-block" ></span>
                                 </div>
                             </div>
