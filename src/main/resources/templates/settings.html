@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <div th:replace="fragments :: head-inclusions"></div>
+</head>
+<body>
+    <div th:replace="fragments :: navigation"></div>
+    <form class="form-inline col-lg-7" th:action="@{settings/category/add}" method="post">
+        <select class="form-control" th:name="transactionType">
+            <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType).values()}"
+                    th:value="${c}" th:text="${c.name()}"></option>
+        </select>
+        <input class="form-control" placeholder="category" th:name="categoryName"/>
+        <input class="form-control" placeholder="limit" th:name="limit"/>
+
+        <button type="button" class="btn btn-primary" th:type="submit">Save changes</button>
+    </form>
+
+
+    <div th:each="cat : ${categories}">
+        <span th:text="${cat}"></span>
+    </div>
+</body>
+</html>

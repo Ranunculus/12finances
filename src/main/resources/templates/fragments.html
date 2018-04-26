@@ -1,4 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="head-inclusions">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="webjars/jquery/2.0.3/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</div>
 <div th:fragment="navigation">
     <div class="navbar navbar-default">
         <div class="container-fluid">
@@ -29,8 +36,8 @@
                     <li class="disabled">
                         <a href="#">Savings</a>
                     </li>
-                    <li class="disabled">
-                        <a href="#">Settings</a>
+                    <li>
+                        <a th:href="@{/settings}">Settings</a>
                     </li>
                 </ul>
             </div>
