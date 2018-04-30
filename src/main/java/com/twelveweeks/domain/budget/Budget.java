@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "BUDGET")
+@Table(name = "BUDGET", uniqueConstraints = @UniqueConstraint(columnNames = {"TYPE", "CATEGORY_ID"}))
 public class Budget {
 
     @Id
@@ -22,7 +22,7 @@ public class Budget {
     private BigDecimal amount;
 
     @OneToOne
-    @JoinColumn(name = "CATEGORY_ID", nullable = true)
+    @JoinColumn(name = "CATEGORY_ID")
     protected Category category;
 
     public Budget() {

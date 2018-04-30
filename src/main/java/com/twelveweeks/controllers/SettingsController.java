@@ -52,7 +52,6 @@ public class SettingsController {
 
     @PostMapping("/budget/set")
     public String setBudgets(SettingsBudgetRequest budget) {
-        System.out.println(budget);
         Budget budgetObject = new Budget(budget.getType(), budget.getAmount(), categoryRepository.findOne(budget.getCategoryId()));
         budgetRepository.save(budgetObject);
         return "redirect:/settings";
