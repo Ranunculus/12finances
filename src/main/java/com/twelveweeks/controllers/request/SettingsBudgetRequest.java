@@ -1,31 +1,19 @@
-package com.twelveweeks.domain.budget;
+package com.twelveweeks.controllers.request;
 
 import com.twelveweeks.domain.enums.BudgetType;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "BUDGET")
-public class Budget {
+public class SettingsBudgetRequest {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "ID", unique = true, nullable = false)
-    private Integer id;
-
-    @Column(name = "TYPE")
     private BudgetType period;
-
-    @Column(name = "AMOUNT")
     private BigDecimal amount;
+    private String name;
 
-    @Transient
-    private String currency;
-
-    public Budget(BudgetType period, BigDecimal amount) {
+    public SettingsBudgetRequest(BudgetType period, BigDecimal amount, String name) {
         this.period = period;
         this.amount = amount;
+        this.name = name;
     }
 
     public BudgetType getPeriod() {
@@ -42,5 +30,13 @@ public class Budget {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

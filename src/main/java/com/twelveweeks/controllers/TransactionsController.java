@@ -27,6 +27,8 @@ import java.util.Date;
 @Controller
 public class TransactionsController {
 
+    private static final String PAGE_NAME = "transactions";
+
     @Autowired
     TransactionsService service;
 
@@ -38,6 +40,11 @@ public class TransactionsController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @ModelAttribute
+    public void fillModel(Model model) {
+        model.addAttribute("pageName", PAGE_NAME);
+    }
 
     @RequestMapping("/now")
     public String indexTest(Model model){

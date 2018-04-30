@@ -1,7 +1,9 @@
 package com.twelveweeks.controllers;
 
+import com.twelveweeks.controllers.request.SettingsBudgetRequest;
 import com.twelveweeks.domain.enums.TransactionType;
 import com.twelveweeks.domain.transactions.Category;
+import com.twelveweeks.repository.BudgetRepository;
 import com.twelveweeks.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +16,23 @@ import java.math.BigDecimal;
 @RequestMapping("/settings")
 public class SettingsController {
 
+    private static final String PAGE_NAME = "settings";
+
     @Autowired
     public CategoryRepository categoryRepository;
+
+    @Autowired
+    public BudgetRepository budgetRepository;
+
+    @ModelAttribute
+    public void fillModel(Model model) {
+        model.addAttribute("pageName", PAGE_NAME);
+    }
 
     @GetMapping
     public String index(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("budgets", budgetRepository.findAll());
         return "settings";
     }
 
@@ -33,6 +46,11 @@ public class SettingsController {
         // TODO: 26/04/18
 //        category.setTransactionType(transactionType);
         categoryRepository.save(category);
+        return "redirect:/settings";
+    }
+
+    @PostMapping("/budget/set")
+    public String setBudgets(@RequestParam SettingsBudgetRequest budget) {
         return "redirect:/settings";
     }
 }
