@@ -1,6 +1,7 @@
 package com.twelveweeks.domain.budget;
 
 import com.twelveweeks.domain.enums.BudgetType;
+import com.twelveweeks.domain.transactions.Category;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,25 +16,38 @@ public class Budget {
     private Integer id;
 
     @Column(name = "TYPE")
-    private BudgetType period;
+    private BudgetType type;
 
     @Column(name = "AMOUNT")
     private BigDecimal amount;
 
-    @Transient
-    private String currency;
+    @OneToOne
+    @JoinColumn(name = "CATEGORY_ID", nullable = true)
+    protected Category category;
 
-    public Budget(BudgetType period, BigDecimal amount) {
-        this.period = period;
+    public Budget() {
+    }
+
+    public Budget(BudgetType type, BigDecimal amount, Category category) {
+        this.type = type;
         this.amount = amount;
+        this.category = category;
     }
 
-    public BudgetType getPeriod() {
-        return period;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPeriod(BudgetType period) {
-        this.period = period;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public BudgetType getType() {
+        return type;
+    }
+
+    public void setType(BudgetType type) {
+        this.type = type;
     }
 
     public BigDecimal getAmount() {
@@ -42,5 +56,23 @@ public class Budget {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Budget{" +
+                "id=" + id +
+                ", type=" + type +
+                ", amount=" + amount +
+                ", category=" + category +
+                '}';
     }
 }

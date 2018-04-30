@@ -6,33 +6,37 @@
 </head>
 <body>
     <div th:replace="fragments :: navigation"></div>
-    <div class="row">
-        <form class="form-inline col-lg-7" th:action="@{settings/category/add}" method="post">
-            <select class="form-control" th:name="transactionType">
-                <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType).values()}"
-                        th:value="${c}" th:text="${c.name()}"></option>
-            </select>
-            <input class="form-control" placeholder="category" th:name="categoryName"/>
-            <input class="form-control" placeholder="limit" th:name="limit"/>
+    <form class="form-inline col-lg-12" th:action="@{settings/category/add}" method="post">
+        <select class="form-control" th:name="transactionType">
+            <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType).values()}"
+                    th:value="${c}" th:text="${c.name()}"></option>
+        </select>
+        <input class="form-control" placeholder="category" th:name="categoryName"/>
+        <input class="form-control" placeholder="limit" th:name="limit"/>
 
-            <button type="button" class="btn btn-primary" th:type="submit">Save changes</button>
-        </form>
-    </div>
+        <button type="button" class="btn btn-primary" th:type="submit">Save changes</button>
+    </form>
     <div class="row col-lg-12" th:each="cat : ${categories}">
         <span th:text="${cat}"></span>
     </div>
 
-    <!--<form class="form-inline col-lg-4" th:action="@{settings/budget/set}" method="post">-->
-        <!--<div class="row" th:each="budget : ${T(com.twelveweeks.domain.enums.BudgetType).values()}">-->
-            <!--<label class="col-lg-3" th:for="${'#budget-' + budget}" th:text="${budget.name()}"></label>-->
-            <!--<input th:id="${'#budget-' + budget}" class="form-control col-lg-1" th:name="budget"/>-->
-        <!--</div>-->
-        <!--<button type="button" class="btn btn-primary col-lg-4" th:type="submit">Save changes</button>-->
-    <!--</form>-->
+    <form class="form-inline col-lg-12" th:action="@{settings/budget/set}" method="post">
+        <select class="form-control" th:name="type">
+            <option th:each="c : ${T(com.twelveweeks.domain.enums.BudgetType).values()}"
+                    th:value="${c}" th:text="${c.name()}"></option>
+        </select>
+        <select class="form-control" th:name="categoryId">
+            <option value="0">Без категории</option>
+            <option th:each="c : ${categories}"
+                    th:value="${c.getId()}" th:text="${c.getName()}"></option>
+        </select>
+        <input class="form-control" placeholder="amount" th:name="amount"/>
+        <button type="button" class="btn btn-primary" th:type="submit">Save changes</button>
+    </form>
 
-    <!--<div th:each="cat : ${budgets}">-->
-        <!--<span th:text="${cat}"></span>-->
-    <!--</div>-->
+    <div th:each="bud : ${budgets}">
+        <span th:text="${bud}"></span>
+    </div>
 
 </body>
 </html>

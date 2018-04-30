@@ -1,6 +1,7 @@
 package com.twelveweeks.controllers;
 
 import com.twelveweeks.controllers.request.SettingsBudgetRequest;
+import com.twelveweeks.domain.budget.Budget;
 import com.twelveweeks.domain.enums.TransactionType;
 import com.twelveweeks.domain.transactions.Category;
 import com.twelveweeks.repository.BudgetRepository;
@@ -50,7 +51,10 @@ public class SettingsController {
     }
 
     @PostMapping("/budget/set")
-    public String setBudgets(@RequestParam SettingsBudgetRequest budget) {
+    public String setBudgets(SettingsBudgetRequest budget) {
+        System.out.println(budget);
+        Budget budgetObject = new Budget(budget.getType(), budget.getAmount(), categoryRepository.findOne(budget.getCategoryId()));
+        budgetRepository.save(budgetObject);
         return "redirect:/settings";
     }
 }

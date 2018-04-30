@@ -69,7 +69,6 @@ public class Category {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", limit=" + limit +
-                ", transactions=" + transactions +
                 '}';
     }
 }

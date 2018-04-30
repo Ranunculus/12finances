@@ -6,22 +6,25 @@ import java.math.BigDecimal;
 
 public class SettingsBudgetRequest {
 
-    private BudgetType period;
+    private BudgetType type;
     private BigDecimal amount;
-    private String name;
+    private int categoryId;
 
-    public SettingsBudgetRequest(BudgetType period, BigDecimal amount, String name) {
-        this.period = period;
+    public SettingsBudgetRequest() {
+    }
+
+    public SettingsBudgetRequest(BudgetType type, BigDecimal amount, int categoryId) {
+        this.type = type;
         this.amount = amount;
-        this.name = name;
+        this.categoryId = categoryId;
     }
 
-    public BudgetType getPeriod() {
-        return period;
+    public BudgetType getType() {
+        return type;
     }
 
-    public void setPeriod(BudgetType period) {
-        this.period = period;
+    public void setType(BudgetType type) {
+        this.type = type;
     }
 
     public BigDecimal getAmount() {
@@ -32,11 +35,11 @@ public class SettingsBudgetRequest {
         this.amount = amount;
     }
 
-    public String getName() {
-        return name;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }
