@@ -12,7 +12,6 @@
                     th:value="${c}" th:text="${c.name()}"></option>
         </select>
         <input class="form-control" placeholder="category" th:name="categoryName"/>
-        <input class="form-control" placeholder="limit" th:name="limit"/>
 
         <button type="button" class="btn btn-primary" th:type="submit">Save changes</button>
     </form>
@@ -22,7 +21,6 @@
         <tr>
             <td>Type</td>
             <td>Name</td>
-            <td>Limit</td>
         </tr>
         </thead>
 
@@ -30,7 +28,6 @@
         <tr th:each="row : ${categories}">
             <td th:text="${row.type}"></td>
             <td th:text="${row.name}"></td>
-            <td th:text="${row.limit}"></td>
         </tr>
         </tbody>
     </table>

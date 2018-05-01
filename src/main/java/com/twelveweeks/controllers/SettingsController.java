@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-
 @Controller
 @RequestMapping("/settings")
 public class SettingsController {
@@ -39,10 +37,8 @@ public class SettingsController {
 
     @PostMapping("/category/add")
     public String addCategory(@RequestParam TransactionType transactionType,
-                              @RequestParam String categoryName,
-                              @RequestParam BigDecimal limit) {
+                              @RequestParam String categoryName) {
         Category category = new Category();
-        category.setLimit(limit);
         category.setName(categoryName);
         category.setType(transactionType);
         categoryRepository.save(category);

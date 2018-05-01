@@ -9,9 +9,6 @@ import javax.validation.constraints.Past;
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * Created by Ranunculus on 2/04/18.
- */
 public class TransactionRequest {
 
     @NotNull

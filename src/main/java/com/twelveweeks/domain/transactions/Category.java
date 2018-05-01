@@ -3,7 +3,6 @@ package com.twelveweeks.domain.transactions;
 import com.twelveweeks.domain.enums.TransactionType;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "CATEGORY")
@@ -17,19 +16,15 @@ public class Category {
     @Column(name = "CATEGORY_NAME")
     private String name;
 
-    @Column(name = "CATEGORY_LIMIT")
-    private BigDecimal limit;
-
     @Column(name = "TRANSACTION_TYPE")
     @Enumerated(EnumType.STRING)
     private TransactionType type;
 
-    public Category() {
-    }
+    public Category() {}
 
-    public Category(String name, BigDecimal limit) {
+    public Category(String name, TransactionType type) {
         this.name = name;
-        this.limit = limit;
+        this.type = type;
     }
 
     public Integer getId() {
@@ -48,14 +43,6 @@ public class Category {
         this.name = name;
     }
 
-    public BigDecimal getLimit() {
-        return limit;
-    }
-
-    public void setLimit(BigDecimal limit) {
-        this.limit = limit;
-    }
-
     public TransactionType getType() {
         return type;
     }
@@ -69,7 +56,7 @@ public class Category {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", limit=" + limit +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
