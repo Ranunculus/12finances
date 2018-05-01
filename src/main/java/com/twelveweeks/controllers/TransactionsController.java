@@ -44,6 +44,7 @@ public class TransactionsController {
     @ModelAttribute
     public void fillModel(Model model) {
         model.addAttribute("pageName", PAGE_NAME);
+        model.addAttribute("transactionRequest", new TransactionRequest());
     }
 
     @RequestMapping("/now")
@@ -65,7 +66,6 @@ public class TransactionsController {
         }
         model.addAttribute("incomeRows", incomes);
         model.addAttribute("incomeTotal", total);
-        model.addAttribute("transactionRequest", new TransactionRequest());
 
         model.addAttribute("categories", categoryRepository.findAll());
         return "period";
@@ -107,8 +107,6 @@ public class TransactionsController {
 
         boolean isExpense = TransactionType.EXPENSE.equals(transactionRequest.getType());
         Transaction transaction = isExpense ? new Expenses() : new Income();
-
-        transaction.setCurrency("RUB");
 
         transaction.setDate(new Date());
         transaction.setType(transactionRequest.getType().name());

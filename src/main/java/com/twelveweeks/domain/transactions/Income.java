@@ -5,5 +5,4 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "INCOME")
-public class Income extends Transaction {
-}
+public class Income extends Transaction {}

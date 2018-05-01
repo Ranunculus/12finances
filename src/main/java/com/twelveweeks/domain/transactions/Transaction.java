@@ -4,8 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
 public abstract class Transaction implements Finance {
 
     @Id
@@ -31,6 +30,16 @@ public abstract class Transaction implements Finance {
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
     protected Category category;
+
+    @Override
+    public Category getCategory() {
+        return category;
+    }
+
+    @Override
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public void setCurrency(String currency) {
         this.currency = currency;
@@ -88,13 +97,4 @@ public abstract class Transaction implements Finance {
         return currency;
     }
 
-    @Override
-    public Category getCategory() {
-        return category;
-    }
-
-    @Override
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 }

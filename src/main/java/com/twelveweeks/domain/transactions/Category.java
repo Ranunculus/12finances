@@ -1,8 +1,9 @@
 package com.twelveweeks.domain.transactions;
 
+import com.twelveweeks.domain.enums.TransactionType;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Table(name = "CATEGORY")
@@ -19,16 +20,16 @@ public class Category {
     @Column(name = "CATEGORY_LIMIT")
     private BigDecimal limit;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id", cascade = CascadeType.ALL)
-    private List<Transaction> transactions;
+    @Column(name = "TRANSACTION_TYPE")
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
 
     public Category() {
     }
 
-    public Category(String name, BigDecimal limit, List<Transaction> transactions) {
+    public Category(String name, BigDecimal limit) {
         this.name = name;
         this.limit = limit;
-        this.transactions = transactions;
     }
 
     public Integer getId() {
@@ -55,12 +56,12 @@ public class Category {
         this.limit = limit;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
+    public TransactionType getType() {
+        return type;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
+    public void setType(TransactionType type) {
+        this.type = type;
     }
 
     @Override
