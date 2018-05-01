@@ -44,8 +44,7 @@ public class SettingsController {
         Category category = new Category();
         category.setLimit(limit);
         category.setName(categoryName);
-        // TODO: 26/04/18
-//        category.setTransactionType(transactionType);
+        category.setType(transactionType);
         categoryRepository.save(category);
         return "redirect:/settings";
     }

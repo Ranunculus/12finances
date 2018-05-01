@@ -24,9 +24,6 @@ public abstract class Transaction implements Finance {
     @Column(name = "USER_ID")
     private Integer userId;
 
-    @Column(name = "CURRENCY")
-    private String currency;
-
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
     protected Category category;
@@ -39,10 +36,6 @@ public abstract class Transaction implements Finance {
     @Override
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 
     public Integer getId() {
@@ -91,10 +84,6 @@ public abstract class Transaction implements Finance {
     @Override
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public String getCurrency() {
-        return currency;
     }
 
 }
