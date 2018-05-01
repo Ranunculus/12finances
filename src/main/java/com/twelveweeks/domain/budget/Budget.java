@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "BUDGET", uniqueConstraints = @UniqueConstraint(columnNames = {"TYPE", "CATEGORY_ID"}))
+@Table(name = "BUDGET", uniqueConstraints = @UniqueConstraint(columnNames = {"BUDGET_TYPE", "CATEGORY_ID"}))
 public class Budget {
 
     @Id
@@ -15,7 +15,8 @@ public class Budget {
     @Column(name = "ID", unique = true, nullable = false)
     private Integer id;
 
-    @Column(name = "TYPE")
+    @Column(name = "BUDGET_TYPE")
+    @Enumerated(EnumType.STRING)
     private BudgetType type;
 
     @Column(name = "AMOUNT")
