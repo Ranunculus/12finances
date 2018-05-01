@@ -16,9 +16,24 @@
 
         <button type="button" class="btn btn-primary" th:type="submit">Save changes</button>
     </form>
-    <div class="row col-lg-12" th:each="cat : ${categories}">
-        <span th:text="${cat}"></span>
-    </div>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td>Type</td>
+            <td>Name</td>
+            <td>Limit</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="row : ${categories}">
+            <td th:text="${row.type}"></td>
+            <td th:text="${row.name}"></td>
+            <td th:text="${row.limit}"></td>
+        </tr>
+        </tbody>
+    </table>
 
     <form class="form-inline col-lg-12" th:action="@{settings/budget/set}" method="post">
         <select class="form-control" th:name="type">
@@ -34,9 +49,23 @@
         <button type="button" class="btn btn-primary" th:type="submit">Save changes</button>
     </form>
 
-    <div th:each="bud : ${budgets}">
-        <span th:text="${bud}"></span>
-    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td>Type</td>
+            <td>Amount</td>
+            <td>Category</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="row : ${budgets}">
+            <td th:text="${row.type}"></td>
+            <td th:text="${row.amount}"></td>
+            <td th:text="${row.category}"></td>
+        </tr>
+        </tbody>
+    </table>
 
 </body>
 </html>
