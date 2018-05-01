@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class TransactionsController {
@@ -108,7 +109,7 @@ public class TransactionsController {
         boolean isExpense = TransactionType.EXPENSE.equals(transactionRequest.getType());
         Transaction transaction = isExpense ? new Expenses() : new Income();
 
-        transaction.setDate(new Date());
+        transaction.setDate(Optional.ofNullable(transactionRequest.getDate()).orElse(new Date()));
         transaction.setType(transactionRequest.getType().name());
         transaction.setUserId(1);
         transaction.setValue(transactionRequest.getValue());
