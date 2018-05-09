@@ -86,4 +86,15 @@ public abstract class Transaction implements Finance {
         this.userId = userId;
     }
 
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", value=" + value +
+                ", type='" + type + '\'' +
+                ", date=" + date +
+                ", userId=" + userId +
+                ", category=" + category +
+                '}';
+    }
 }

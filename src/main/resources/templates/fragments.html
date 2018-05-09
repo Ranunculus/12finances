@@ -24,8 +24,8 @@
                     <li th:class="${pageName == 'transactions' ? 'active' : ''}">
                         <a th:href="@{/now}">Transactions</a>
                     </li>
-                    <li class="disabled">
-                        <a href="#">Budget</a>
+                    <li th:class="${pageName == 'budget' ? 'active' : ''}">
+                        <a th:href="@{/budget}">Budget</a>
                     </li>
                     <li class="disabled">
                         <a href="#">Goals</a>
