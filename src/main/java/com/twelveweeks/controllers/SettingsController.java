@@ -17,11 +17,15 @@ public class SettingsController {
 
     private static final String PAGE_NAME = "settings";
 
-    @Autowired
-    public CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+    private final BudgetRepository budgetRepository;
 
     @Autowired
-    public BudgetRepository budgetRepository;
+    public SettingsController(CategoryRepository categoryRepository,
+                              BudgetRepository budgetRepository) {
+        this.categoryRepository = categoryRepository;
+        this.budgetRepository = budgetRepository;
+    }
 
     @ModelAttribute
     public void fillModel(Model model) {

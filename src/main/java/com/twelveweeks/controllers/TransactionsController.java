@@ -8,7 +8,6 @@ import com.twelveweeks.domain.transactions.Transaction;
 import com.twelveweeks.repository.CategoryRepository;
 import com.twelveweeks.repository.ExpensesRepository;
 import com.twelveweeks.repository.IncomeRepository;
-import com.twelveweeks.services.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -30,17 +29,18 @@ public class TransactionsController {
 
     private static final String PAGE_NAME = "transactions";
 
-    @Autowired
-    TransactionsService service;
+    private final ExpensesRepository expensesRepository;
+    private final IncomeRepository incomeRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
-    ExpensesRepository expensesRepository;
-
-    @Autowired
-    IncomeRepository incomeRepository;
-
-    @Autowired
-    CategoryRepository categoryRepository;
+    public TransactionsController(ExpensesRepository expensesRepository,
+                                  IncomeRepository incomeRepository,
+                                  CategoryRepository categoryRepository) {
+        this.expensesRepository = expensesRepository;
+        this.incomeRepository = incomeRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     @ModelAttribute
     public void fillModel(Model model) {

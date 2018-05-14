@@ -23,7 +23,6 @@ repositories {
 
 
 dependencies {
-//	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-devtools')
@@ -34,7 +33,6 @@ dependencies {
 	compile('org.postgresql:postgresql:42.2.2')
 
 	runtime('com.h2database:h2:1.4.196')
-//	runtime('org.postgresql:postgresql:9.6.3')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0-M4")

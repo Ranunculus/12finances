@@ -21,14 +21,18 @@ public class BudgetController {
 
     private static final String PAGE_NAME = "budget";
 
-    @Autowired
-    public CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+    private final ExpensesRepository expensesRepository;
+    private final BudgetRepository budgetRepository;
 
     @Autowired
-    public ExpensesRepository expensesRepository;
-
-    @Autowired
-    public BudgetRepository budgetRepository;
+    public BudgetController(CategoryRepository categoryRepository,
+                            ExpensesRepository expensesRepository,
+                            BudgetRepository budgetRepository) {
+        this.categoryRepository = categoryRepository;
+        this.expensesRepository = expensesRepository;
+        this.budgetRepository = budgetRepository;
+    }
 
     @ModelAttribute
     public void fillModel(Model model) {
@@ -46,6 +50,9 @@ public class BudgetController {
                 total = total.add(expense.getValue());
             }
             Budget budget = budgetRepository.findByCategory(category);
+            if (budget != null) {
+                System.out.println(budget.getAmount().subtract(total));
+            }
         }
         return "budget";
     }
