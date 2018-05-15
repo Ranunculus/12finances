@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/settings")
 public class SettingsController {
@@ -51,8 +53,11 @@ public class SettingsController {
 
     @PostMapping("/budget/set")
     public String setBudgets(SettingsBudgetRequest budget) {
-        Budget budgetObject = new Budget(budget.getType(), budget.getAmount(), categoryRepository.findOne(budget.getCategoryId()));
-        budgetRepository.save(budgetObject);
+        Optional<Category> byId = categoryRepository.findById(budget.getCategoryId());
+        if (byId.isPresent()) {
+            Budget budgetObject = new Budget(budget.getType(), budget.getAmount(), byId.get());
+            budgetRepository.save(budgetObject);
+        }
         return "redirect:/settings";
     }
 }
