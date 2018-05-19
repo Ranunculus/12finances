@@ -21,6 +21,7 @@
         <tr>
             <td>Type</td>
             <td>Name</td>
+            <td>Action</td>
         </tr>
         </thead>
 
@@ -28,6 +29,12 @@
         <tr th:each="row : ${categories}">
             <td th:text="${row.type}"></td>
             <td th:text="${row.name}"></td>
+            <td>
+                <form th:action="@{settings/category/remove}" method="post">
+                    <input class="hidden" th:name="id" th:value="${row.id}"/>
+                    <button type="button" class="btn btn-danger" th:type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -52,6 +59,7 @@
             <td>Type</td>
             <td>Amount</td>
             <td>Category</td>
+            <td>Actions</td>
         </tr>
         </thead>
 
@@ -60,6 +68,12 @@
             <td th:text="${row.type}"></td>
             <td th:text="${row.amount}"></td>
             <td th:text="${row.category}"></td>
+            <td>
+                <form th:action="@{settings/budget/remove}" method="post">
+                    <input class="hidden" th:name="id" th:value="${row.id}"/>
+                    <button type="button" class="btn btn-danger" th:type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
