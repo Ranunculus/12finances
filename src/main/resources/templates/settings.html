@@ -31,7 +31,7 @@
             <td th:text="${row.name}"></td>
             <td>
                 <form th:action="@{settings/category/remove}" method="post">
-                    <input class="hidden" th:name="id" th:value="${row.id}"/>
+                    <input class="d-none" th:name="id" th:value="${row.id}"/>
                     <button type="button" class="btn btn-danger" th:type="submit">Delete</button>
                 </form>
             </td>
@@ -70,7 +70,7 @@
             <td th:text="${row.category}"></td>
             <td>
                 <form th:action="@{settings/budget/remove}" method="post">
-                    <input class="hidden" th:name="id" th:value="${row.id}"/>
+                    <input class="d-none" th:name="id" th:value="${row.id}"/>
                     <button type="button" class="btn btn-danger" th:type="submit">Delete</button>
                 </form>
             </td>
