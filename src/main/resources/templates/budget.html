@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Transactions</title>
+    <title>Budget</title>
     <div th:replace="fragments :: head-inclusions"></div>
 </head>
 <body>
     <div th:replace="fragments :: navigation"></div>
 
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td>Category</td>
+            <td>Budget</td>
+            <td>Spent</td>
+            <td>Left</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="row : ${totals}">
+            <td th:text="${row.categoryName}"></td>
+            <td th:text="${row.limit}"></td>
+            <td th:text="${row.spent}"></td>
+            <td th:text="${row.left}" th:class="${row.left == null || row.left > 0 ? 'text-success' : 'text-danger'} "></td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>
