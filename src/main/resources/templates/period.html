@@ -6,40 +6,41 @@
     </head>
     <body>
         <div th:replace="fragments :: navigation"></div>
-            <div class="card">
-                <form th:action="@{/add}" th:object="${transactionRequest}" method="get">
-                    <div class="card-body">
-                        <h3 class="card-title">Add finance transaction</h3>
+        <div class="container card" style="margin-left: 5px;margin-top: 10px;">
+            <form th:action="@{/add}" th:object="${transactionRequest}" method="get">
+                <div class="card-body">
+                    <h3 class="card-title">Add finance transaction</h3>
 
-                        <div class="row">
-                            <div class="form-group">
-                                <select class="form-control" th:name="transactionType" th:field="*{type}" th:classappend="${#fields.hasErrors('type') ? 'is-invalid' : ''}">
-                                    <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType).values()}"
-                                            th:value="${c}" th:text="${c.name()}"></option>
-                                </select>
-                                <small class="invalid-feedback" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></small>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" placeholder="amount" th:name="value" th:field="*{value}" th:classappend="${#fields.hasErrors('value') ? 'is-invalid' : ''}"/>
-                                <small class="invalid-feedback" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></small>
-                            </div>
-                            <div class="form-group">
-                                <select class="form-control" th:name="category" th:field="*{category}" th:classappend="${#fields.hasErrors('category') ? 'is-invalid' : ''}">
-                                    <option th:each="c : ${categories}"
-                                            th:value="${c.getName()}" th:text="${c.getName()}"></option>
-                                </select>
-                                <small class="invalid-feedback" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></small>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" th:type="date" th:field="*{date}" th:classappend="${#fields.hasErrors('date') ? 'is-invalid' : ''}"/>
-                                <small class="invalid-feedback" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></small>
-                            </div>
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" th:name="transactionType" th:field="*{type}" th:classappend="${#fields.hasErrors('type') ? 'is-invalid' : ''}">
+                                <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType).values()}"
+                                        th:value="${c}" th:text="${c.name()}"></option>
+                            </select>
+                            <small class="invalid-feedback" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></small>
                         </div>
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-info" th:type="submit">Save changes</button>
+                        <div class="col">
+                            <input class="form-control" placeholder="amount" th:name="value" th:field="*{value}" th:classappend="${#fields.hasErrors('value') ? 'is-invalid' : ''}"/>
+                            <small class="invalid-feedback" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></small>
+                        </div>
+                        <div class="col">
+                            <select class="form-control" th:name="category" th:field="*{category}" th:classappend="${#fields.hasErrors('category') ? 'is-invalid' : ''}">
+                                <option th:each="c : ${categories}"
+                                        th:value="${c.getName()}" th:text="${c.getName()}"></option>
+                            </select>
+                            <small class="invalid-feedback" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></small>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" th:type="date" th:field="*{date}" th:classappend="${#fields.hasErrors('date') ? 'is-invalid' : ''}"/>
+                            <small class="invalid-feedback" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></small>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-info" th:type="submit">Save changes</button>
+                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
+        </div>
 
         <h3>Expenses</h3>
         <div th:replace="fragments :: table(${expenseRows}, ${expenseTotal}, 'danger')"></div>

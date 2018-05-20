@@ -6,77 +6,102 @@
 </head>
 <body>
     <div th:replace="fragments :: navigation"></div>
-    <form class="form-inline col-lg-12" th:action="@{settings/category/add}" method="post">
-        <select class="form-control" th:name="transactionType">
-            <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType).values()}"
-                    th:value="${c}" th:text="${c.name()}"></option>
-        </select>
-        <input class="form-control" placeholder="category" th:name="categoryName"/>
+    <div class="container" style="margin-left: 5px;margin-top: 10px;">
+        <div class="row justify-content-start">
+            <form class="col-lg-6 offset-lg-1" th:action="@{settings/category/add}" method="post">
+                <div class="row">
+                    <div class="col">
+                        <select class="form-control" th:name="transactionType">
+                            <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType).values()}"
+                                    th:value="${c}" th:text="${c.name()}"></option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" placeholder="category" th:name="categoryName"/>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-info" th:type="submit">Save changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row" style="margin-left: 5px;margin-top: 10px;">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <td>Type</td>
+                    <td>Name</td>
+                    <td>Action</td>
+                </tr>
+                </thead>
 
-        <button type="button" class="btn btn-info" th:type="submit">Save changes</button>
-    </form>
+                <tbody>
+                <tr th:each="row : ${categories}">
+                    <td th:text="${row.type}"></td>
+                    <td th:text="${row.name}"></td>
+                    <td>
+                        <form th:action="@{settings/category/remove}" method="post">
+                            <input class="d-none" th:name="id" th:value="${row.id}"/>
+                            <button type="button" class="btn btn-danger" th:type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container" style="margin-left: 5px;margin-top: 10px;">
+        <div class="row justify-content-start">
+            <form class="col-lg-12 offset-lg-1" th:action="@{settings/budget/set}" method="post">
+                <div class="row">
+                    <div class="col">
+                        <select class="form-control" th:name="type">
+                            <option th:each="c : ${T(com.twelveweeks.domain.enums.BudgetType).values()}"
+                                    th:value="${c}" th:text="${c.name()}"></option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select class="form-control" th:name="categoryId">
+                            <option value="0">-</option>
+                            <option th:each="c : ${categories}"
+                                    th:value="${c.getId()}" th:text="${c.getName()}"></option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" placeholder="amount" th:name="amount"/>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-info" th:type="submit">Save changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <td>Type</td>
-            <td>Name</td>
-            <td>Action</td>
-        </tr>
-        </thead>
+        <table class="table table-bordered" style="margin-left: 5px;margin-top: 10px;">
+            <thead>
+            <tr>
+                <td>Type</td>
+                <td>Amount</td>
+                <td>Category</td>
+                <td>Actions</td>
+            </tr>
+            </thead>
 
-        <tbody>
-        <tr th:each="row : ${categories}">
-            <td th:text="${row.type}"></td>
-            <td th:text="${row.name}"></td>
-            <td>
-                <form th:action="@{settings/category/remove}" method="post">
-                    <input class="d-none" th:name="id" th:value="${row.id}"/>
-                    <button type="button" class="btn btn-danger" th:type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <form class="form-inline col-lg-12" th:action="@{settings/budget/set}" method="post">
-        <select class="form-control" th:name="type">
-            <option th:each="c : ${T(com.twelveweeks.domain.enums.BudgetType).values()}"
-                    th:value="${c}" th:text="${c.name()}"></option>
-        </select>
-        <select class="form-control" th:name="categoryId">
-            <option value="0">Без категории</option>
-            <option th:each="c : ${categories}"
-                    th:value="${c.getId()}" th:text="${c.getName()}"></option>
-        </select>
-        <input class="form-control" placeholder="amount" th:name="amount"/>
-        <button type="button" class="btn btn-info" th:type="submit">Save changes</button>
-    </form>
-
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <td>Type</td>
-            <td>Amount</td>
-            <td>Category</td>
-            <td>Actions</td>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="row : ${budgets}">
-            <td th:text="${row.type}"></td>
-            <td th:text="${row.amount}"></td>
-            <td th:text="${row.category}"></td>
-            <td>
-                <form th:action="@{settings/budget/remove}" method="post">
-                    <input class="d-none" th:name="id" th:value="${row.id}"/>
-                    <button type="button" class="btn btn-danger" th:type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+            <tbody>
+            <tr th:each="row : ${budgets}">
+                <td th:text="${row.type}"></td>
+                <td th:text="${row.amount}"></td>
+                <td th:text="${row.category}"></td>
+                <td>
+                    <form th:action="@{settings/budget/remove}" method="post">
+                        <input class="d-none" th:name="id" th:value="${row.id}"/>
+                        <button type="button" class="btn btn-danger" th:type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </body>
 </html>
