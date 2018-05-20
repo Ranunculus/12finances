@@ -6,12 +6,11 @@
     </head>
     <body>
         <div th:replace="fragments :: navigation"></div>
-            <div class="panel panel-default">
+            <div class="card">
                 <form class="form-inline" th:action="@{/add}" th:object="${transactionRequest}" method="get">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Add finance transaction</h3>
-                    </div>
-                    <div class="panel-body">
+                    <div class="card-body">
+                        <h3 class="card-title">Add finance transaction</h3>
+
                         <div class="row">
                             <div class="form-group" th:classappend="${#fields.hasErrors('type') ? 'has-error' : ''}">
                                 <select class="form-control" th:name="transactionType" th:field="*{type}">
@@ -44,9 +43,6 @@
                                 <span th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="text-danger help-block" ></span>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="panel-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" th:type="submit">Save changes</button>
                     </div>
