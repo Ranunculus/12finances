@@ -7,34 +7,24 @@
     <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </div>
 <div th:fragment="navigation">
-    <div class="navbar navbar-default">
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li th:class="${pageName == 'transactions' ? 'active' : ''}">
-                        <a th:href="@{/now}">Transactions</a>
+                    <li class="nav-item" th:classappend="${pageName == 'transactions' ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/now}">Transactions</a>
                     </li>
-                    <li th:class="${pageName == 'budget' ? 'active' : ''}">
-                        <a th:href="@{/budget}">Budget</a>
+                    <li class="nav-item" th:classappend="${pageName == 'budget' ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/budget}">Budget</a>
                     </li>
-                    <li class="disabled">
-                        <a href="#">Goals</a>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Goals</a>
                     </li>
-                    <li class="disabled">
-                        <a href="#">Savings</a>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Savings</a>
                     </li>
-                    <li th:class="${pageName == 'settings' ? 'active' : ''}">
-                        <a th:href="@{/settings}">Settings</a>
+                    <li class="nav-item" th:classappend="${pageName == 'settings' ? 'active' : ''}">
+                        <a class="nav-link" th:href="@{/settings}">Settings</a>
                     </li>
                 </ul>
             </div>
