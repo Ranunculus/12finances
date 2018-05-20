@@ -35,7 +35,7 @@
 <div th:fragment="table(rows, total, colorType)">
     <table class="table table-striped">
         <thead>
-        <tr th:class="${colorType}">
+        <tr th:class="${'table-'+colorType}">
             <td>Date</td>
             <td>Amount</td>
             <td>Category</td>
@@ -51,7 +51,7 @@
         </tbody>
 
         <tfoot>
-        <tr th:class="${colorType}">
+        <tr th:class="${'table-'+colorType}">
             <td>Total:</td>
             <td th:text="${total}"></td>
             <td></td>
