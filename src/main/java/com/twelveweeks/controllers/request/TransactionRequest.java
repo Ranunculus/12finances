@@ -21,6 +21,7 @@ public class TransactionRequest {
     @NotNull
     private TransactionType type;
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past
     private Date date;

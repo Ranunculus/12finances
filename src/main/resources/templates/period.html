@@ -7,40 +7,32 @@
     <body>
         <div th:replace="fragments :: navigation"></div>
             <div class="card">
-                <form class="form-inline" th:action="@{/add}" th:object="${transactionRequest}" method="get">
+                <form th:action="@{/add}" th:object="${transactionRequest}" method="get">
                     <div class="card-body">
                         <h3 class="card-title">Add finance transaction</h3>
 
                         <div class="row">
-                            <div class="form-group" th:classappend="${#fields.hasErrors('type') ? 'has-error' : ''}">
-                                <select class="form-control" th:name="transactionType" th:field="*{type}">
+                            <div class="form-group">
+                                <select class="form-control" th:name="transactionType" th:field="*{type}" th:classappend="${#fields.hasErrors('type') ? 'is-invalid' : ''}">
                                     <option th:each="c : ${T(com.twelveweeks.domain.enums.TransactionType).values()}"
                                             th:value="${c}" th:text="${c.name()}"></option>
                                 </select>
+                                <small class="invalid-feedback" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></small>
                             </div>
-                            <div class="form-group" th:classappend="${#fields.hasErrors('type') ? 'has-error' : ''}">
-                                <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="text-danger help-block" ></span>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="amount" th:name="value" th:field="*{value}" th:classappend="${#fields.hasErrors('value') ? 'is-invalid' : ''}"/>
+                                <small class="invalid-feedback" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></small>
                             </div>
-                            <div class="form-group" th:classappend="${#fields.hasErrors('value') ? 'has-error' : ''}">
-                                <input class="form-control" placeholder="amount" th:name="value" th:field="*{value}"/>
-                            </div>
-                            <div class="form-group" th:classappend="${#fields.hasErrors('value') ? 'has-error' : ''}">
-                                <span th:if="${#fields.hasErrors('value')}" th:errors="*{value}" class="text-danger help-block" ></span>
-                            </div>
-                            <div class="form-group" th:classappend="${#fields.hasErrors('category') ? 'has-error' : ''}">
-                                <select class="form-control" th:name="category" th:field="*{category}">
+                            <div class="form-group">
+                                <select class="form-control" th:name="category" th:field="*{category}" th:classappend="${#fields.hasErrors('category') ? 'is-invalid' : ''}">
                                     <option th:each="c : ${categories}"
                                             th:value="${c.getName()}" th:text="${c.getName()}"></option>
                                 </select>
+                                <small class="invalid-feedback" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></small>
                             </div>
-                            <div class="form-group" th:classappend="${#fields.hasErrors('category') ? 'has-error' : ''}">
-                                <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="text-danger help-block" ></span>
-                            </div>
-                            <div class="form-group" th:classappend="${#fields.hasErrors('date') ? 'has-error' : ''}">
-                                <input class="form-control" th:type="date" th:field="*{date}"/>
-                            </div>
-                            <div class="form-group" th:classappend="${#fields.hasErrors('date') ? 'has-error' : ''}">
-                                <span th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="text-danger help-block" ></span>
+                            <div class="form-group">
+                                <input class="form-control" th:type="date" th:field="*{date}" th:classappend="${#fields.hasErrors('date') ? 'is-invalid' : ''}"/>
+                                <small class="invalid-feedback" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></small>
                             </div>
                         </div>
                         <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
