@@ -2,7 +2,6 @@ package com.twelveweeks.controllers.settings;
 
 import com.twelveweeks.domain.budget.Budget;
 import com.twelveweeks.domain.enums.BudgetType;
-import com.twelveweeks.domain.transactions.Category;
 import com.twelveweeks.repository.BudgetRepository;
 import com.twelveweeks.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/settings/budget")
@@ -28,11 +26,8 @@ public class BudgetSettingsController extends SettingsController {
     public String setBudgets(@RequestParam BudgetType type,
                              @RequestParam BigDecimal amount,
                              @RequestParam Integer categoryId) {
-        Optional<Category> byId = categoryRepository.findById(categoryId);
-        if (byId.isPresent()) {
-            Budget budgetObject = new Budget(type, amount, byId.get());
-            budgetRepository.save(budgetObject);
-        }
+        Budget budgetObject = new Budget(type, amount, categoryRepository.findById(categoryId).orElse(null));
+        budgetRepository.save(budgetObject);
         return "redirect:/settings";
     }
 
