@@ -8,7 +8,7 @@ import java.util.Date;
 public abstract class Transaction implements Finance {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     private Integer id;
 

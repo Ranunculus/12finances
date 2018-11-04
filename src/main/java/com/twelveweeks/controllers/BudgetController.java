@@ -1,6 +1,8 @@
 package com.twelveweeks.controllers;
 
 import com.twelveweeks.domain.budget.Budget;
+import com.twelveweeks.domain.budget.Totals;
+import com.twelveweeks.domain.enums.TransactionType;
 import com.twelveweeks.domain.transactions.Category;
 import com.twelveweeks.domain.transactions.Expenses;
 import com.twelveweeks.repository.BudgetRepository;
@@ -45,7 +47,7 @@ public class BudgetController {
     public String index(Model model) {
 
         List<Totals> totals = new ArrayList<>();
-        Iterable<Category> all = categoryRepository.findAll();
+        Iterable<Category> all = categoryRepository.findByType(TransactionType.EXPENSE);
         for (Category category : all) {
             Totals categoryTotal = new Totals(category.getName());
             Iterable<Expenses> expenses = expensesRepository.findByCategory(category);
@@ -56,6 +58,7 @@ public class BudgetController {
             categoryTotal.setSpent(total);
             Budget budget = budgetRepository.findByCategory(category);
             if (budget != null) {
+                // TODO: 5/11/18 calculate by period
                 categoryTotal.setLimit(budget.getAmount());
                 categoryTotal.setLeft(budget.getAmount().subtract(total));
             }
@@ -64,57 +67,6 @@ public class BudgetController {
         }
         model.addAttribute("totals", totals);
         return PAGE_NAME;
-    }
-
-    // TODO: 20/05/18 separate class
-    private class Totals {
-        private String categoryName;
-        private BigDecimal limit;
-        private BigDecimal spent;
-        private BigDecimal left;
-
-        public Totals(String categoryName) {
-            this.categoryName = categoryName;
-        }
-
-        public Totals(String categoryName, BigDecimal limit, BigDecimal spent, BigDecimal left) {
-            this.categoryName = categoryName;
-            this.limit = limit;
-            this.spent = spent;
-            this.left = left;
-        }
-
-        public String getCategoryName() {
-            return categoryName;
-        }
-
-        public void setCategoryName(String categoryName) {
-            this.categoryName = categoryName;
-        }
-
-        public BigDecimal getLimit() {
-            return limit;
-        }
-
-        public void setLimit(BigDecimal limit) {
-            this.limit = limit;
-        }
-
-        public BigDecimal getSpent() {
-            return spent;
-        }
-
-        public void setSpent(BigDecimal spent) {
-            this.spent = spent;
-        }
-
-        public BigDecimal getLeft() {
-            return left;
-        }
-
-        public void setLeft(BigDecimal left) {
-            this.left = left;
-        }
     }
 
 }
